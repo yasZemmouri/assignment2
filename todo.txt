@@ -1,0 +1,103 @@
+Assignment 2 - URL Encoding a String
+
+Skills
+    -Looping
+    -Branching
+    -Use of the length(), indexOf(), and charAt() methods of class String
+    -Use of the static Integer.toHexString method to convert a character to its ASCII hex value
+    
+Description
+In this assignment, you'll be URL encoding of a line of text. Web browsers URL encode certain values when sending information in requests to web servers (URL stands for Uniform Resource Locator).
+
+Your program needs to perform the following steps:
+
+1. Prompt for a line of input to be URL encoded
+2. Read the line of text into a String (using the Scanner class nextLine method)
+3. Print the line that was read.
+4. Print the number of characters in the line (using String.length)
+5. Create an output String that is the URL encoded version of the input line (see below for details on encoding).
+6. Print the URL encoded String
+7. Print the number of characters in the encoded String.
+
+To convert a String to URL encoded format, each character is examined in turn:
+    - The ASCII characters 'a' through 'z', 'A' through 'Z',  '0' through '9', '_' (underscore), '-' (dash), '.' (dot), and '*' (asterisk) remain the same.
+    - The space (blank) character ' ' is converted into a plus sign '+'.
+    - All other characters are converted into the 3-character string "%xy", where xy is the two-digit hexadecimal representation of the lower 8-bits of the character.
+Use a for loop which increments it's index variable from 0 up to the last character position in the input string. Each iteration of the loop retrieves the character at the 'index' position of the input string  (call the String class charAt() method on the input string). Use if statements to test the value of the character to see if it needs to be encoded. If encoding is not required, just concatenate it to the output encoded String. If encoding is required, concatenate the encoded value to the output encoded String. For example, if the input character is a blank, you want to concatenate a '+' character to the output encoded String (as described above).
+
+Note: one technique to determine if a character is one that remains the same is to first create an initialized String containing all of the letters (both upper and lower case), digits, and other special characters that remain the same as described above. Then, call the String indexOf method on that String, passing the character to be tested. If -1 is returned from indexOf, the character was not one of those that remains the same when URL encoding.
+
+For those characters that need to be converted into hex format (%xy above), you can call the pre-defined static Integer.toHexString method, passing the character as an argument. It returns the hex value of the character as a String, which you can concatenate to the encoded output String with the accompanying '%' symbol:
+
+    String hexValue = Integer.toHexString(srcChar);
+    encodedLine += '%' + hexValue;
+
+Values that are URL encoded in this manner can be URL decoded by reversing the process. This is typically done by a web server upon receiving a request from a browser.
+
+Sample Output
+
+Enter a line of text to be URL encoded
+This should have plus symbols for blanks
+
+The string read is:  This should have plus symbols for blanks
+Length in chars is:  40
+The encoded string:  This+should+have+plus+symbols+for+blanks
+Length in chars is:  40
+
+Enter a line of text to be URL encoded
+This should have hex 2f for /
+
+The string read is:  This should have hex 2f for /
+Length in chars is:  29
+The encoded string:  This+should+have+hex+2f+for+%2f
+Length in chars is:  31
+
+Test Data
+Use all the following test data to test your program, plus an example of your own:
+
+This should have hex 2f for /
+An encoded + should be hex 2b
+123 and _-.* are unchanged
+Angles, equals, question, ampersand > < = ? &
+
+Getting started
+Before you start writing Java code, it's usually a good idea to 'outline' the logic you're trying to implement first. Once you've determined the logic needed, then start writing Java code. Implement it incrementally, getting something compiled and working as soon as possible, then add new code to already working code. If something breaks, you'll know to look at the code you just added as the likely culprit.
+
+To help you get started with this homework, here's an outline of the logic you'll need (sometime referred to as 'pseudo-code'):
+
+Prompt for the line of input.
+Read a line into the input string.
+
+Set the encoded output string to empty.
+Loop through each character in the input string.
+{
+  Get the n'th character from the input string (use String's charAt method).
+
+  if (the character is a blank)
+    concatenate '+' to the encoded output string
+  else if (the character remains unchanged)
+    concatenate the character to the encoded output string
+  else
+    concatenate '%' and the hex encoded character value
+    to the encoded output string
+}
+
+Print the encoded output string.
+
+Once you understand this logic, start writing your Java code. An example of the steps you could take are as follows:
+
+Create your Java source file with the public class and main() method (like homework 1).
+In the main() method, add code to prompt for the input line, read in the line of input, and print it out.
+Next, add the for-loop that loops through each character of the input string. You can use the length() method on your input string to get the number of characters in it to control your loop.
+The first statement in the loop should call charAt() on the input string to get the next character to examine.
+To check things are working ok so far, make the next statement in the loop print out the character position (the for-loop index variable) and character from the string.
+Get this much compiled and running first.
+With this much done, if you read in a line containing "hello", you'd get output something like this from the temporary output statement within the loop:
+
+char 0 is h
+char 1 is e
+char 2 is l
+char 3 is l
+char 4 is o
+
+Once you've got this compiled and working, starting adding the if/else-if/else logic inside the loop to build the encoded output string. 
